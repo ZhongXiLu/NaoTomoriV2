@@ -7,7 +7,7 @@ export class MyAnimeListStub implements MyAnimeListPort {
         anime.forEach(a => this._animeList.push(a));
     }
 
-    getAnimeList(): string[] {
+    async getAnimeList(): Promise<string[]> {
         return this._animeList;
     }
 }

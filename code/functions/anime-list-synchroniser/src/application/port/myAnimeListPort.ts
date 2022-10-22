@@ -1,3 +1,3 @@
 export interface MyAnimeListPort {
-    getAnimeList(): string[];
+    getAnimeList(): Promise<string[]>
 }

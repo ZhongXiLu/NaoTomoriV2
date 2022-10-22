@@ -10,8 +10,8 @@ export class AnimeListSynchroniser {
         this._animeStorePort = animeStorePort;
     }
 
-    sync() {
-        const animeListFromMal = this._myAnimeListPort.getAnimeList();
+    async sync() {
+        const animeListFromMal = await this._myAnimeListPort.getAnimeList();
         const animeListFromStore = this._animeStorePort.getAnimeList();
 
         const animeToBeRemoved = animeListFromStore.filter(anime => !animeListFromMal.includes(anime))
