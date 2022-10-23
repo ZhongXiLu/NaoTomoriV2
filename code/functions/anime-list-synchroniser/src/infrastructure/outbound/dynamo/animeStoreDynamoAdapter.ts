@@ -1,7 +1,7 @@
 import {AnimeStorePort} from "../../../application/port/animeStorePort";
 import {BatchWriteItemCommand, DynamoDBClient, ScanCommand} from "@aws-sdk/client-dynamodb";
 
-class AnimeStoreDynamoAdapter implements AnimeStorePort {
+export class AnimeStoreDynamoAdapter implements AnimeStorePort {
     private dynamoDbClient: DynamoDBClient;
     private readonly tableName: string;
 
