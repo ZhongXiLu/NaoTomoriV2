@@ -21,14 +21,11 @@ export class AnimeListSynchroniser {
 
         if (animeToBeRemoved.length != 0) {
             console.log("Removing anime: ", animeToBeRemoved);
+            await this.animeStorePort.removeAnime(animeToBeRemoved);
         }
         if (animeToBeAdded.length != 0) {
             console.log("Adding anime: ", animeToBeAdded);
+            await this.animeStorePort.addNewAnime(animeToBeAdded);
         }
-
-        await Promise.all([
-            this.animeStorePort.removeAnime(animeToBeRemoved),
-            this.animeStorePort.addNewAnime(animeToBeAdded)
-        ]);
     }
 }
