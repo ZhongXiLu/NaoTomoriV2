@@ -10,7 +10,7 @@ const environment = new LambdaEnvironment()
 
 const auth = Mal.auth(environment.getMalClientId());
 const malAccount = auth.Unstable.login(environment.getMalUsername(), environment.getMalPassword());
-const dynamoDBClient = new DynamoDBClient({region: 'eu-west-1'});
+const dynamoDBClient = new DynamoDBClient({region: 'eu-central-1'});
 
 const myAnimeListAdapter = new MyAnimeListAdapter(malAccount);
 const animeStoreDynamoAdapter = new AnimeStoreDynamoAdapter(dynamoDBClient, environment.getAnimeWatchingTableName());
