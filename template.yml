@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SAM template for the serverless NaoTomoriV2 Discord bot.
+
+Parameters:
+  MalClientId:
+    Type: String
+    Description: MAl client id.
+    NoEcho: true
+  MalUsername:
+    Type: String
+    Description: MAl username.
+  MalPassword:
+    Type: String
+    Description: MAl password.
+    NoEcho: true
+
+Resources:
+  AnimeListSynchroniser:
+    FunctionName: anime-list-synchroniser
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./code/functions/anime-list-synchroniser
+      Handler: build/infrastructure/inbound/lambda/handler.lambdaHandler
+      Runtime: nodejs16.x
+      Events:
+        AnimeListSynchroniseSchedule:
+          Type: Schedule
+          Properties:
+            Schedule: 'rate(1 hour)'
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AnimeWatchingTable
+      Environment:
+        Variables:
+          MAL_CLIENT_ID: !Ref MalClientId
+          MAL_USERNAME: !Ref MalUsername
+          MAL_PASSWORD: !Ref MalPassword
+          ANIME_WATCHING_TABLE_NAME: !Ref AnimeWatchingTable
+
+  AnimeWatchingTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: anime-watching
+      PrimaryKey:
+        Name: Title
+        Type: String
