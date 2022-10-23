@@ -20,8 +20,8 @@ Resources:
     FunctionName: anime-list-synchroniser
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./code/functions/anime-list-synchroniser/build
-      Handler: infrastructure/inbound/lambda/handler.lambdaHandler
+      CodeUri: ./code/functions/anime-list-synchroniser
+      Handler: build/infrastructure/inbound/lambda/handler.lambdaHandler
       Runtime: nodejs16.x
       Events:
         AnimeListSynchroniseSchedule:
