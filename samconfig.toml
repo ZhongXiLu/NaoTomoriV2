@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "nao-tomori-v2"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-sswj8n6dzv5h"
+s3_prefix = "nao-tomori-v2"
+region = "eu-central-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+image_repositories = []
