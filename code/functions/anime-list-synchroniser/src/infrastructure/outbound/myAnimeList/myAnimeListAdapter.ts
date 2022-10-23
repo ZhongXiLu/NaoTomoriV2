@@ -2,14 +2,14 @@ import {MyAnimeListPort} from "../../../application/port/myAnimeListPort";
 import {MalAcount} from "node-myanimelist/typings/methods/malApi";
 
 class MyAnimeListAdapter implements MyAnimeListPort {
-    private _account: MalAcount;
+    private account: MalAcount;
 
     constructor(account: MalAcount) {
-        this._account = account;
+        this.account = account;
     }
 
     async getAnimeList(): Promise<string[]> {
-        const animeList = await this._account.user.animelist("@me", null, null, {
+        const animeList = await this.account.user.animelist("@me", null, null, {
             status: "watching",
             limit: 1000
         }).call();

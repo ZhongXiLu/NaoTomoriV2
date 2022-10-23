@@ -1,7 +1,7 @@
 export interface AnimeStorePort {
-    getAnimeList(): string[];
+    getAnimeList(): Promise<string[]>;
 
-    addNewAnime(anime: string[]): void;
+    addNewAnime(anime: string[]): Promise<void>;
 
-    removeAnime(anime: string[]): void;
+    removeAnime(anime: string[]): Promise<void>;
 }

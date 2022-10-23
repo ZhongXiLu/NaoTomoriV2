@@ -7,15 +7,15 @@ export class AnimeStoreStub implements AnimeStorePort {
         return this._animeList;
     }
 
-    addNewAnime(anime: string[]): void {
-        anime.forEach(a => this._animeList.push(a));
-    }
-
-    getAnimeList(): string[] {
+    async getAnimeList():Promise<string[]> {
         return this._animeList;
     }
 
-    removeAnime(anime: string[]): void {
+    async addNewAnime(anime: string[]): Promise<void> {
+        anime.forEach(a => this._animeList.push(a));
+    }
+
+    async removeAnime(anime: string[]): Promise<void> {
         anime.forEach(a => this._animeList.splice(this._animeList.indexOf(a), 1));
     }
 }

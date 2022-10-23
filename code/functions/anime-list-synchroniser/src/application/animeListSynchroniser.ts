@@ -2,22 +2,26 @@ import {MyAnimeListPort} from "./port/myAnimeListPort";
 import {AnimeStorePort} from "./port/animeStorePort";
 
 export class AnimeListSynchroniser {
-    private _myAnimeListPort: MyAnimeListPort;
-    private _animeStorePort: AnimeStorePort;
+    private myAnimeListPort: MyAnimeListPort;
+    private animeStorePort: AnimeStorePort;
 
     constructor(myAnimeListPort: MyAnimeListPort, animeStorePort: AnimeStorePort) {
-        this._myAnimeListPort = myAnimeListPort;
-        this._animeStorePort = animeStorePort;
+        this.myAnimeListPort = myAnimeListPort;
+        this.animeStorePort = animeStorePort;
     }
 
     async sync() {
-        const animeListFromMal = await this._myAnimeListPort.getAnimeList();
-        const animeListFromStore = this._animeStorePort.getAnimeList();
+        const [animeListFromMal, animeListFromStore] = await Promise.all([
+            this.myAnimeListPort.getAnimeList(),
+            this.animeStorePort.getAnimeList()
+        ])
 
         const animeToBeRemoved = animeListFromStore.filter(anime => !animeListFromMal.includes(anime))
-        this._animeStorePort.removeAnime(animeToBeRemoved);
-
         const animeToBeAdded = animeListFromMal.filter(anime => !animeListFromStore.includes(anime))
-        this._animeStorePort.addNewAnime(animeToBeAdded);
+
+        await Promise.all([
+            this.animeStorePort.removeAnime(animeToBeRemoved),
+            this.animeStorePort.addNewAnime(animeToBeAdded)
+        ])
     }
 }

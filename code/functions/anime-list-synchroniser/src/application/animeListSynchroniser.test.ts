@@ -24,7 +24,7 @@ describe('Anime List Synchroniser', () => {
 
     it('should remove anime from DynamoDb when anime is removed in MyAnimeList', async () => {
         myAnimeListStub.addAnime(["Chainsaw Man"])
-        animeStoreStub.addNewAnime(["Chainsaw Man", "Spy x Family Part 2"]);
+        await animeStoreStub.addNewAnime(["Chainsaw Man", "Spy x Family Part 2"]);
 
         await animeListSynchroniser.sync();
 
@@ -33,7 +33,7 @@ describe('Anime List Synchroniser', () => {
 
     it('should not do anything to DynamoDb when its list is the same as in MyAnimeList', async () => {
         myAnimeListStub.addAnime(["Chainsaw Man", "Spy x Family Part 2"])
-        animeStoreStub.addNewAnime(["Chainsaw Man", "Spy x Family Part 2"]);
+        await animeStoreStub.addNewAnime(["Chainsaw Man", "Spy x Family Part 2"]);
 
         await animeListSynchroniser.sync();
 
