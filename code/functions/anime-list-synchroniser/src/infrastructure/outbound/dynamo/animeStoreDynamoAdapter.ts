@@ -49,7 +49,7 @@ export class AnimeStoreDynamoAdapter implements AnimeStorePort {
             }
         }));
 
-        await this.dynamoDbClient.send(await new BatchWriteItemCommand({
+        await this.dynamoDbClient.send(new BatchWriteItemCommand({
             RequestItems: {
                 [this.tableName]: deleteRequests
             }
