@@ -23,7 +23,7 @@ jobs:
           cd code/functions/anime-list-synchroniser
           npm i
           npm run build
-          cp -r node-modules build/
+          cp -r node_modules build/
       - name: SAM build
         run: sam build --use-container --parameter-overrides \
               "MalClientId=${{ secrets.MAL_CLIENT_ID }} MalUsername=${{ secrets.MAL_USERNAME }} MalPassword=${{ secrets.MAL_PASSWORD }}"
