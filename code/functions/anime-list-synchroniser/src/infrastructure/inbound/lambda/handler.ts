@@ -18,7 +18,6 @@ const animeListSynchroniser = new AnimeListSynchroniser(myAnimeListAdapter, anim
 
 export const lambdaHandler = async (event: EventBridgeEvent<any, any>) => {
     try {
-        console.log("Synchronising anime lists: " + JSON.stringify(event));
         await animeListSynchroniser.sync();
     } catch (err) {
         console.error(err);

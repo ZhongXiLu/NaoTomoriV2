@@ -33,11 +33,11 @@ export class AnimeStoreDynamoAdapter implements AnimeStorePort {
             }
         }));
 
-        await new BatchWriteItemCommand({
+        await this.dynamoDbClient.send(new BatchWriteItemCommand({
             RequestItems: {
                 [this.tableName]: putRequests
             }
-        });
+        }));
     }
 
     async removeAnime(anime: string[]): Promise<void> {
@@ -49,10 +49,10 @@ export class AnimeStoreDynamoAdapter implements AnimeStorePort {
             }
         }));
 
-        await new BatchWriteItemCommand({
+        await this.dynamoDbClient.send(await new BatchWriteItemCommand({
             RequestItems: {
                 [this.tableName]: deleteRequests
             }
-        });
+        }));
     }
 }
