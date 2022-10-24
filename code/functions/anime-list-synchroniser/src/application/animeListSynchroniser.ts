@@ -1,5 +1,6 @@
 import {MyAnimeListPort} from "./port/myAnimeListPort";
 import {AnimeStorePort} from "./port/animeStorePort";
+import {AnimeWatching} from "../domain/animeWatching";
 
 export class AnimeListSynchroniser {
     private myAnimeListPort: MyAnimeListPort;
@@ -16,8 +17,8 @@ export class AnimeListSynchroniser {
             this.animeStorePort.getAnimeList()
         ]);
 
-        const animeToBeRemoved = animeListFromStore.filter(anime => !animeListFromMal.includes(anime));
-        const animeToBeAdded = animeListFromMal.filter(anime => !animeListFromStore.includes(anime));
+        const animeToBeRemoved = animeListFromStore.filter(anime => !this.animeListContainsAnime(animeListFromMal, anime));
+        const animeToBeAdded = animeListFromMal.filter(anime => !this.animeListContainsAnime(animeListFromStore, anime));
 
         if (animeToBeRemoved.length != 0) {
             console.log("Removing anime: ", animeToBeRemoved);
@@ -27,5 +28,9 @@ export class AnimeListSynchroniser {
             console.log("Adding anime: ", animeToBeAdded);
             await this.animeStorePort.addNewAnime(animeToBeAdded);
         }
+    }
+
+    private animeListContainsAnime(animeList: AnimeWatching[], anime: AnimeWatching) {
+        return animeList.filter(a => a.title === anime.title).length > 0;
     }
 }
