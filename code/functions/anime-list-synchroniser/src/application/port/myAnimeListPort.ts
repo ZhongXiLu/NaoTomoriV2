@@ -1,3 +1,5 @@
+import {AnimeWatching} from "../../domain/animeWatching";
+
 export interface MyAnimeListPort {
-    getAnimeList(): Promise<string[]>
+    getAnimeList(): Promise<AnimeWatching[]>
 }

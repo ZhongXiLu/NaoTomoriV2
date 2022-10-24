@@ -1,5 +1,6 @@
 import {AnimeStorePort} from "../../../application/port/animeStorePort";
 import {BatchWriteItemCommand, DynamoDBClient, ScanCommand} from "@aws-sdk/client-dynamodb";
+import {AnimeWatching} from "../../../domain/animeWatching";
 
 export class AnimeStoreDynamoAdapter implements AnimeStorePort {
     private dynamoDbClient: DynamoDBClient;
@@ -10,25 +11,29 @@ export class AnimeStoreDynamoAdapter implements AnimeStorePort {
         this.tableName = tableName;
     }
 
-    async getAnimeList(): Promise<string[]> {
+    async getAnimeList(): Promise<AnimeWatching[]> {
         const scanCommandOutput = await this.dynamoDbClient.send(new ScanCommand({
             TableName: this.tableName
         }));
 
         const anime = scanCommandOutput.Items;
         if (anime) {
-            return anime.map(a => a.Title.S!);
+            return anime.map(a => ({
+                title: a.Title.S!,
+                episode: Number(a.Episode.N)!
+            }));
         } else {
             console.error("No anime found in Dynamo");
             return [];
         }
     }
 
-    async addNewAnime(anime: string[]): Promise<void> {
+    async addNewAnime(anime: AnimeWatching[]): Promise<void> {
         const putRequests = anime.map(a => ({
             PutRequest: {
                 Item: {
-                    Title: {S: a}
+                    Title: {S: a.title},
+                    Episode: {N: a.episode.toString()}
                 }
             }
         }));
@@ -40,11 +45,11 @@ export class AnimeStoreDynamoAdapter implements AnimeStorePort {
         }));
     }
 
-    async removeAnime(anime: string[]): Promise<void> {
+    async removeAnime(anime: AnimeWatching[]): Promise<void> {
         const deleteRequests = anime.map(a => ({
             DeleteRequest: {
                 Key: {
-                    Title: {S: a}
+                    Title: {S: a.title}
                 }
             }
         }));

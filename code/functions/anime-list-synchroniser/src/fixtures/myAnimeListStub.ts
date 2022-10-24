@@ -1,13 +1,14 @@
 import {MyAnimeListPort} from "../application/port/myAnimeListPort";
+import {AnimeWatching} from "../domain/animeWatching";
 
 export class MyAnimeListStub implements MyAnimeListPort {
-    private _animeList: string[] = [];
+    private _animeList: AnimeWatching[] = [];
 
-    addAnime(anime: string[]) {
+    addAnime(anime: AnimeWatching[]) {
         anime.forEach(a => this._animeList.push(a));
     }
 
-    async getAnimeList(): Promise<string[]> {
+    async getAnimeList(): Promise<AnimeWatching[]> {
         return this._animeList;
     }
 }

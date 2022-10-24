@@ -1,7 +1,9 @@
+import {AnimeWatching} from "../../domain/animeWatching";
+
 export interface AnimeStorePort {
-    getAnimeList(): Promise<string[]>;
+    getAnimeList(): Promise<AnimeWatching[]>;
 
-    addNewAnime(anime: string[]): Promise<void>;
+    addNewAnime(anime: AnimeWatching[]): Promise<void>;
 
-    removeAnime(anime: string[]): Promise<void>;
+    removeAnime(anime: AnimeWatching[]): Promise<void>;
 }
