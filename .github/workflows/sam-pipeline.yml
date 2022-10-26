@@ -18,11 +18,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
-      - name: Build zip
+      - name: Build and Test
         run: |
           cd code/functions/anime-list-synchroniser
           npm i
           npm run build
+          npm run test
       - name: SAM build
         run: sam build --use-container --parameter-overrides \
               "MalClientId=${{ secrets.MAL_CLIENT_ID }} MalUsername=${{ secrets.MAL_USERNAME }} MalPassword=${{ secrets.MAL_PASSWORD }}"
