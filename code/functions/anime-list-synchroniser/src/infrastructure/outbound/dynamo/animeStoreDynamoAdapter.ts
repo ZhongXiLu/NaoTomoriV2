@@ -28,7 +28,7 @@ export class AnimeStoreDynamoAdapter implements AnimeStorePort {
         }
     }
 
-    async addNewAnime(anime: AnimeWatching[]): Promise<void> {
+    async putAnime(anime: AnimeWatching[]): Promise<void> {
         const putRequests = anime.map(a => ({
             PutRequest: {
                 Item: {

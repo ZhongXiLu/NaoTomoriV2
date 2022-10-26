@@ -18,19 +18,25 @@ export class AnimeListSynchroniser {
         ]);
 
         const animeToBeRemoved = animeListFromStore.filter(anime => !this.animeListContainsAnime(animeListFromMal, anime));
-        const animeToBeAdded = animeListFromMal.filter(anime => !this.animeListContainsAnime(animeListFromStore, anime));
+        const animeToBePut = animeListFromMal.filter(anime =>
+            !this.animeListContainsAnime(animeListFromStore, anime) || this.animeListContainsAnimeButEpisodeCountDiffers(animeListFromStore, anime)
+        );
 
         if (animeToBeRemoved.length != 0) {
             console.log("Removing anime: ", animeToBeRemoved);
             await this.animeStorePort.removeAnime(animeToBeRemoved);
         }
-        if (animeToBeAdded.length != 0) {
-            console.log("Adding anime: ", animeToBeAdded);
-            await this.animeStorePort.addNewAnime(animeToBeAdded);
+        if (animeToBePut.length != 0) {
+            console.log("Putting anime: ", animeToBePut);
+            await this.animeStorePort.putAnime(animeToBePut);
         }
     }
 
     private animeListContainsAnime(animeList: AnimeWatching[], anime: AnimeWatching) {
         return animeList.filter(a => a.title === anime.title).length > 0;
+    }
+
+    private animeListContainsAnimeButEpisodeCountDiffers(animeList: AnimeWatching[], anime: AnimeWatching) {
+        return animeList.filter(a => a.title === anime.title && a.episode != anime.episode).length > 0;
     }
 }

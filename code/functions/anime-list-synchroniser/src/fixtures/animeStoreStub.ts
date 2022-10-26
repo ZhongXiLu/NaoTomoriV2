@@ -2,30 +2,17 @@ import {AnimeStorePort} from "../application/port/animeStorePort";
 import {AnimeWatching} from "../domain/animeWatching";
 
 export class AnimeStoreStub implements AnimeStorePort {
-    private animeList: AnimeWatching[] = [];
-
-    getAnime(): AnimeWatching[] {
-        return this.animeList;
-    }
+    private animeList: Map<string, AnimeWatching> = new Map<string, AnimeWatching>();
 
     async getAnimeList(): Promise<AnimeWatching[]> {
-        return this.animeList;
+        return Array.from(this.animeList.values());
     }
 
-    async addNewAnime(anime: AnimeWatching[]): Promise<void> {
-        anime.forEach(a => this.animeList.push(a));
+    async putAnime(anime: AnimeWatching[]): Promise<void> {
+        anime.forEach(a => this.animeList.set(a.title, a));
     }
 
     async removeAnime(anime: AnimeWatching[]): Promise<void> {
-        anime.forEach(a => this.animeList.splice(this.getIndexOf(a), 1));
-    }
-
-    private getIndexOf(a: AnimeWatching) {
-        for (let i = 0; i < this.animeList.length; i++) {
-            if (this.animeList[i].title === a.title) {
-                return i;
-            }
-        }
-        return -1;
+        anime.forEach(a => this.animeList.delete(a.title));
     }
 }
