@@ -11,7 +11,7 @@ export class _9AnimeAdapter implements AnimeSitePort {
     }
 
     async getLatestAnimeEpisodes(): Promise<AnimeEpisode[]> {
-        const response = await fetch(this._9animeUrl);
+        const response = await fetch(`${this._9animeUrl}/ajax/home/widget/updated-all`);
 
         if (!response.ok) {
             console.error(`Failed fetching from 9Anime: ${JSON.stringify(response)}`)
