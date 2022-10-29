@@ -13,7 +13,7 @@ export class LambdaEnvironment {
     }
 
     getDiscordBotChannelId() {
-        return process.env.DISCORD_CHANNEL_ID ? process.env.DISCORD_CHANNEL_ID : "DISCORD_CHANNEL_ID";
+        return process.env.DISCORD_BOT_CHANNEL_ID ? process.env.DISCORD_BOT_CHANNEL_ID : "DISCORD_BOT_CHANNEL_ID";
     }
 
     getDiscordUserId() {

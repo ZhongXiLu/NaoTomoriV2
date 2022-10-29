@@ -14,6 +14,21 @@ Parameters:
     Type: String
     Description: MAl password.
     NoEcho: true
+  9AnimeUrl:
+    Type: String
+    Description: 9Anime URL.
+  DiscordClientToken:
+    Type: String
+    Description: Discord client Token.
+    NoEcho: true
+  DiscordBotChannelId:
+    Type: String
+    Description: Discord channel id where the bot will message you.
+    NoEcho: true
+  DiscordUserId:
+    Type: String
+    Description: Your Discord user id.
+    NoEcho: true
 
 Resources:
   AnimeListSynchroniser:
@@ -37,6 +52,29 @@ Resources:
           MAL_USERNAME: !Ref MalUsername
           MAL_PASSWORD: !Ref MalPassword
           ANIME_WATCHING_TABLE_NAME: !Ref AnimeWatchingTable
+
+  AnimeEpisodeChecker:
+    FunctionName: anime-episode-checker
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./code/functions/anime-episode-checker
+      Handler: build/infrastructure/inbound/lambda/handler.lambdaHandler
+      Runtime: nodejs16.x
+      Events:
+        AnimeEpisodeCheckerSchedule:
+          Type: Schedule
+          Properties:
+            Schedule: 'rate(10 minutes)'
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AnimeWatchingTable
+      Environment:
+        Variables:
+          ANIME_WATCHING_TABLE_NAME: !Ref AnimeWatchingTable
+          _9_ANIME_URL: !Ref 9AnimeUrl
+          DISCORD_CLIENT_TOKEN: !Ref DiscordClientToken
+          DISCORD_BOT_CHANNEL_ID: !Ref DiscordBotChannelId
+          DISCORD_USER_ID: !Ref DiscordUserId
 
   AnimeWatchingTable:
     Type: AWS::Serverless::SimpleTable
