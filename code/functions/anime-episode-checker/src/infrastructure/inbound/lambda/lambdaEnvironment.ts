@@ -5,7 +5,7 @@ export class LambdaEnvironment {
     }
 
     get9AnimeUrl() {
-        return process.env._9_ANIME_URL ? process.env._9_ANIME_URL : "_9_ANIME_URL";
+        return process.env.NINE_ANIME_URL ? process.env.NINE_ANIME_URL : "NINE_ANIME_URL";
     }
 
     getDiscordClientToken() {

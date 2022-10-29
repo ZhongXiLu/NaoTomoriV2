@@ -71,7 +71,7 @@ Resources:
       Environment:
         Variables:
           ANIME_WATCHING_TABLE_NAME: !Ref AnimeWatchingTable
-          _9_ANIME_URL: !Ref 9AnimeUrl
+          NINE_ANIME_URL: !Ref 9AnimeUrl
           DISCORD_CLIENT_TOKEN: !Ref DiscordClientToken
           DISCORD_BOT_CHANNEL_ID: !Ref DiscordBotChannelId
           DISCORD_USER_ID: !Ref DiscordUserId
