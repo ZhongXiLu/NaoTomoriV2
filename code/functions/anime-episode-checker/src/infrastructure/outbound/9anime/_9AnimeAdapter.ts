@@ -14,7 +14,8 @@ export class _9AnimeAdapter implements AnimeSitePort {
     async getLatestAnimeEpisodes(): Promise<AnimeEpisode[]> {
         const response = await fetch(`${this._9animeUrl}/ajax/home/widget/updated-all`);
 
-        const data = await response.json();
+        const data = await response.text();
+        console.log(`data: ${data}`);
         const html = parse(data.result);
         const anime = html.querySelectorAll(".item");
         const animeEpisodes = anime.map(a => {
