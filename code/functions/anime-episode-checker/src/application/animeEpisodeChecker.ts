@@ -31,6 +31,9 @@ export class AnimeEpisodeChecker {
                 return false;
             }).length != 0);
 
-        await this.notificationPort.sendNotifications(latestAnimeWatchingEpisodes);
+        if (latestAnimeWatchingEpisodes.length > 0) {
+            console.log(`Sending a notification for: ${latestAnimeWatchingEpisodes}`);
+            await this.notificationPort.sendNotifications(latestAnimeWatchingEpisodes);
+        }
     }
 }
