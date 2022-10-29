@@ -3,7 +3,7 @@ import {AnimeSitePort} from "../../../application/port/animeSitePort";
 import fetch from "isomorphic-unfetch";
 import parse from "node-html-parser";
 
-class _9AnimeAdapter implements AnimeSitePort {
+export class _9AnimeAdapter implements AnimeSitePort {
     private readonly _9animeUrl: string;
 
     constructor(_9animeUrl: string) {

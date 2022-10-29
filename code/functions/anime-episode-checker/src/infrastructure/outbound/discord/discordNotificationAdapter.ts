@@ -2,7 +2,7 @@ import {NotificationPort} from "../../../application/port/notificationPort";
 import {Client, Colors, EmbedBuilder, GatewayIntentBits} from "discord.js";
 import {AnimeEpisode} from "../../../domain/animeEpisode";
 
-class DiscordNotificationAdapter implements NotificationPort {
+export class DiscordNotificationAdapter implements NotificationPort {
     private client: Client;
     private readonly clientToken: string;
     private botChannelId: string;
