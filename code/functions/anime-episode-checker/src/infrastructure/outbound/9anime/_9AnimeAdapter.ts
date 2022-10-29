@@ -26,11 +26,13 @@ class _9AnimeAdapter implements AnimeSitePort {
             const title = linkElement.innerHTML;
             const link = linkElement.getAttribute("href");
             const episodeNr = Number(a.querySelector("span.ep-status.sub span")!.innerHTML);
+            const image = a.querySelector(".poster")!.getAttribute("src");
 
             return {
                 title: title,
                 nr: episodeNr,
-                link: link
+                link: link,
+                image: image
             } as AnimeEpisode;
         });
 

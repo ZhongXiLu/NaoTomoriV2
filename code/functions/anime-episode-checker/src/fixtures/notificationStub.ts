@@ -1,14 +1,14 @@
 import {NotificationPort} from "../application/port/notificationPort";
-import {AnimeNotification} from "../domain/animeNotification";
+import {AnimeEpisode} from "../domain/animeEpisode";
 
 export class NotificationStub implements NotificationPort {
-    private notifications: AnimeNotification[] = [];
+    private notifications: AnimeEpisode[] = [];
 
     getNotifications() {
         return this.notifications;
     }
 
-    sendNotification(notification: AnimeNotification): void {
-        this.notifications.push(notification);
+    async sendNotifications(animeEpisodes: AnimeEpisode[]): Promise<void> {
+        this.notifications.push(...animeEpisodes);
     }
 }

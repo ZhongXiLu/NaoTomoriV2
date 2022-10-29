@@ -31,6 +31,6 @@ export class AnimeEpisodeChecker {
                 return false;
             }).length != 0);
 
-        latestAnimeWatchingEpisodes.forEach(episode => this.notificationPort.sendNotification(episode));
+        await this.notificationPort.sendNotifications(latestAnimeWatchingEpisodes);
     }
 }

@@ -1,5 +1,5 @@
-import {AnimeNotification} from "../../domain/animeNotification";
+import {AnimeEpisode} from "../../domain/animeEpisode";
 
 export interface NotificationPort {
-    sendNotification(notification: AnimeNotification): void;
+    sendNotifications(animeEpisodes: AnimeEpisode[]): Promise<void>;
 }
