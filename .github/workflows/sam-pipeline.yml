@@ -32,8 +32,6 @@ jobs:
           npm run test
       - name: SAM build
         run: sam build --use-container --parameter-overrides \
-              "MalClientId=${{ secrets.MAL_CLIENT_ID }} MalUsername=${{ secrets.MAL_USERNAME }} MalPassword=${{ secrets.MAL_PASSWORD }}" \
-              "9AnimeUrl=${{ secrets._9_ANIME_URL }}" \
-              "DiscordClientToken=${{ secrets.DISCORD_CLIENT_TOKEN }} DiscordBotChannelId=${{ secrets.DISCORD_BOT_CHANNEL_ID }} DiscordUserId=${{ secrets.DISCORD_USER_ID }}"
+              "MalClientId=${{ secrets.MAL_CLIENT_ID }} MalUsername=${{ secrets.MAL_USERNAME }} MalPassword=${{ secrets.MAL_PASSWORD }} 9AnimeUrl=${{ secrets._9_ANIME_URL }} DiscordClientToken=${{ secrets.DISCORD_CLIENT_TOKEN }} DiscordBotChannelId=${{ secrets.DISCORD_BOT_CHANNEL_ID }} DiscordUserId=${{ secrets.DISCORD_USER_ID }}"
       - name: SAM deploy
         run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
