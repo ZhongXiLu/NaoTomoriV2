@@ -4,7 +4,7 @@ import {AnimeEpisode} from "../domain/animeEpisode";
 export class AnimeSiteStub implements AnimeSitePort {
     private animeEpisodes: AnimeEpisode[] = [];
 
-    getLatestAnimeEpisodes(): AnimeEpisode[] {
+    async getLatestAnimeEpisodes(): Promise<AnimeEpisode[]> {
         return this.animeEpisodes;
     }
 

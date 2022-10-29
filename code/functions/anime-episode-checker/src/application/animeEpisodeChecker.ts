@@ -14,10 +14,10 @@ export class AnimeEpisodeChecker {
     }
 
     async checkNewEpisodes() {
-        const [animeWatchingList] = await Promise.all([
-            this.animeStorePort.getAnimeWatchingList()
+        const [animeWatchingList, latestAnimeEpisodes] = await Promise.all([
+            this.animeStorePort.getAnimeWatchingList(),
+            this.animeSitePort.getLatestAnimeEpisodes()
         ]);
-        const latestAnimeEpisodes = this.animeSitePort.getLatestAnimeEpisodes();
 
         const latestAnimeWatchingEpisodes = latestAnimeEpisodes
             .filter(episode => animeWatchingList.filter(anime => {
