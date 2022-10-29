@@ -1,7 +1,8 @@
 import {AnimeEpisode} from "../../../domain/animeEpisode";
 import {AnimeSitePort} from "../../../application/port/animeSitePort";
-import fetch from "isomorphic-unfetch";
 import parse from "node-html-parser";
+
+const fetch = require('isomorphic-unfetch')
 
 export class _9AnimeAdapter implements AnimeSitePort {
     private readonly _9animeUrl: string;
