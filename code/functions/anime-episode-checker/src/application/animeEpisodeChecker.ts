@@ -13,8 +13,10 @@ export class AnimeEpisodeChecker {
         this.notificationPort = notificationPort;
     }
 
-    checkNewEpisodes() {
-        const animeWatchingList = this.animeStorePort.getAnimeWatchingList();
+    async checkNewEpisodes() {
+        const [animeWatchingList] = await Promise.all([
+            this.animeStorePort.getAnimeWatchingList()
+        ]);
         const latestAnimeEpisodes = this.animeSitePort.getLatestAnimeEpisodes();
 
         const latestAnimeWatchingEpisodes = latestAnimeEpisodes

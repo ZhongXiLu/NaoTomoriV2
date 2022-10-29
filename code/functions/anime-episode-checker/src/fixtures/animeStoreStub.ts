@@ -4,7 +4,7 @@ import {AnimeWatching} from "../domain/animeWatching";
 export class AnimeStoreStub implements AnimeStorePort {
     private animeList: AnimeWatching[] = [];
 
-    getAnimeWatchingList(): AnimeWatching[] {
+    async getAnimeWatchingList(): Promise<AnimeWatching[]> {
         return this.animeList;
     }
 

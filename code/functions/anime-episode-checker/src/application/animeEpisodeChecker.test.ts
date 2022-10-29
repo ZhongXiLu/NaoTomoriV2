@@ -18,38 +18,38 @@ describe('Anime Episode Checker', () => {
     });
 
 
-    it('should send out a new notification when a new episode has been released for a watching anime', () => {
+    it('should send out a new notification when a new episode has been released for a watching anime', async () => {
         animeStoreStub.addNewAnime([{title: "Chainsaw Man", episode: 2}, {title: "Spy x Family Part 2", episode: 4}]);
         animeSiteStub.addNewAnimeEpisode([{title: "Chainsaw Man", nr: 3}])
 
-        animeEpisodeChecker.checkNewEpisodes();
+        await animeEpisodeChecker.checkNewEpisodes();
 
         expect(notificationStub.getNotifications()).toEqual([{title: "Chainsaw Man", nr: 3}]);
     });
 
-    it('should not send out a new notification when a new episode has been released for a non watching anime', () => {
+    it('should not send out a new notification when a new episode has been released for a non watching anime', async () => {
         animeStoreStub.addNewAnime([{title: "Chainsaw Man", episode: 2}, {title: "Spy x Family Part 2", episode: 4}]);
         animeSiteStub.addNewAnimeEpisode([{title: "Mob Psycho III", nr: 4}])
 
-        animeEpisodeChecker.checkNewEpisodes();
+        await animeEpisodeChecker.checkNewEpisodes();
 
         expect(notificationStub.getNotifications()).toEqual([]);
     });
 
-    it('should send out a new notification when a new movie has been released for a plan to watch movie', () => {
+    it('should send out a new notification when a new movie has been released for a plan to watch movie', async () => {
         animeStoreStub.addNewAnime([{title: "Suzume no Tojimari", episode: 0}]);
         animeSiteStub.addNewAnimeEpisode([{title: "Suzume no Tojimari", nr: 0}])
 
-        animeEpisodeChecker.checkNewEpisodes();
+        await animeEpisodeChecker.checkNewEpisodes();
 
         expect(notificationStub.getNotifications()).toEqual([{title: "Suzume no Tojimari", nr: 0}]);
     });
 
-    it('should not send out a new notification when a non first episode has been released for a plan to watch anime', () => {
+    it('should not send out a new notification when a non first episode has been released for a plan to watch anime', async () => {
         animeStoreStub.addNewAnime([{title: "Blue Lock", episode: 0}]);
         animeSiteStub.addNewAnimeEpisode([{title: "Blue Lock", nr: 4}])
 
-        animeEpisodeChecker.checkNewEpisodes();
+        await animeEpisodeChecker.checkNewEpisodes();
 
         expect(notificationStub.getNotifications()).toEqual([]);
     });
